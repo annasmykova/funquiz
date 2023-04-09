@@ -1,0 +1,36 @@
+{
+   "name": "funquiz-api",
+   "version": "1.0.0",
+   "description": "A Koa app using PostgreSQL and TypeScript",
+   "main": "dist/index.js",
+   "scripts": {
+      "start:dev": "nodemon src/index.ts",
+      "start": "ts-node src/index.ts",
+      "build": "tsc",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "migration:generate": "npm run typeorm migration:generate -n",
+      "migration:run": "npm run typeorm migration:run",
+      "migration:revert": "npm run typeorm migration:revert",
+      "seed": "node db/seed.js"
+   },
+   "dependencies": {
+      "@types/koa": "^2.13.4",
+      "@types/koa-bodyparser": "^4.3.1",
+      "@types/koa-router": "^7.4.4",
+      "bcrypt": "^5.1.0",
+      "jsonwebtoken": "^9.0.0",
+      "koa": "^2.13.1",
+      "koa-bodyparser": "^4.3.0",
+      "koa-router": "^12.0.0",
+      "koa-static": "^5.0.0",
+      "pg": "^8.4.0",
+      "reflect-metadata": "^0.1.13",
+      "typeorm": "0.3.13"
+   },
+   "devDependencies": {
+      "@types/node": "^16.11.10",
+      "ts-node": "10.7.0",
+      "tsconfig-paths": "^4.2.0",
+      "typescript": "4.5.2"
+   }
+}
