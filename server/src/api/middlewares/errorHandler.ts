@@ -10,3 +10,5 @@ const errorHandler = async (ctx, next) => {
     };
   }
 };
+
+export default errorHandler

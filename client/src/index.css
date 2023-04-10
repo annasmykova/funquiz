@@ -1,3 +1,16 @@
+:root {
+  --mui-palette-primary-main: #e4780a !important;
+  --mui-palette-primary-light: #e8ac29 !important;
+  --mui-palette-primary-dark: #a25504 !important;
+  --mui-palette-primary-contrastText: #fff;
+  --mui-palette-background-default: #eaeaea !important;
+  /* ...other variables */
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +18,38 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: none;
+}
+
+a.primary-link {
+  color: var(--mui-palette-primary-dark);
+}
+
+.primary-btn {
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid var(--mui-palette-primary-main);
+  color: var(--mui-palette-primary-main);
+  cursor: pointer;
+  transition: all .3s ease-in;
+}
+.primary-btn:hover {
+  background-color: var(--mui-palette-primary-main);
+  color: #fff;
 }
