@@ -26,14 +26,8 @@ export default async (ctx: RouterContext<Context, RegisterRequest>) => {
     }
 
     const user: User = await UserService.createUser(body)
-    console.log('process.env.JWT_SECRET_KEY');
-    console.log(process.env.JWT_SECRET_KEY);
-    console.log('user');
-    console.log(user);
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });
-    console.log('token');
-    console.log(token);
 
     ctx.response.status = 200
     ctx.response.body = {

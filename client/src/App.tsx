@@ -1,27 +1,29 @@
-import React, {useContext} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { Route, Switch } from 'react-router-dom'
 import PrivateRoute from "./components/privateRoute";
 import {AccountContext} from "./contexts/userContext";
 import Home from "./pages/home";
 import Login from "./pages/login";
+import Quiz from "./pages/quiz";
 import SignUp from "./pages/register";
 import './App.css';
 
 function App() {
-  const { state: { user } } = useContext((AccountContext))
+  const { state: { user, loading } } = useContext((AccountContext))
+
   return (
       <Switch>
         <Route exact path="/">
           <Home />
         </Route>
-        <PrivateRoute isAvailable={!user} exact path="/signup">
+        <PrivateRoute isAvailable={!user} loading={loading} exact path="/signup">
           <SignUp />
         </PrivateRoute>
-        <PrivateRoute isAvailable={!user} exact path="/login">
+        <PrivateRoute isAvailable={!user} loading={loading} exact path="/login">
           <Login />
         </PrivateRoute>
-        <PrivateRoute isAvailable={!!user} exact path="/quiz">
-          <Login />
+        <PrivateRoute isAvailable={!!user} loading={loading} exact path="/quiz">
+          <Quiz />
         </PrivateRoute>
         <Route>
           <div>Not Found</div>

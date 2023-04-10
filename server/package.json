@@ -11,7 +11,7 @@
       "migration:generate": "npm run typeorm migration:generate -n",
       "migration:run": "npm run typeorm migration:run",
       "migration:revert": "npm run typeorm migration:revert",
-      "seed": "node db/seed.js"
+      "seed": "ts-node ./src/db/seeds/index.ts"
    },
    "dependencies": {
       "@types/koa": "^2.13.4",

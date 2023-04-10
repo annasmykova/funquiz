@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Route, Redirect, RouteProps } from 'react-router-dom'
+import Loader from "../Loader";
 
 interface PrivateRouteProps extends RouteProps {
   // tslint:disable-next-line:no-any
@@ -7,6 +8,7 @@ interface PrivateRouteProps extends RouteProps {
   // tslint:disable-next-line:no-any
   children?: any
   isAvailable: boolean
+  loading: boolean
 }
 
 const PrivateRoute = (props: PrivateRouteProps) => {
@@ -15,8 +17,11 @@ const PrivateRoute = (props: PrivateRouteProps) => {
   return (
     <Route
       {...rest}
-      render={(routeProps) =>
-        props.isAvailable ? (
+      render={(routeProps) => {
+        if (props.loading) {
+          return <Loader />
+        }
+        return props.isAvailable ? (
           Component ? (
             <Component {...routeProps} />
           ) : (
@@ -26,10 +31,11 @@ const PrivateRoute = (props: PrivateRouteProps) => {
           <Redirect
             to={{
               pathname: '/',
-              state: { from: routeProps.location },
+              state: {from: routeProps.location},
             }}
           />
         )
+      }
       }
     />
   )

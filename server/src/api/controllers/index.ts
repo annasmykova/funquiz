@@ -1,5 +1,6 @@
 import Router from "koa-router";
 import configureUser from './user'
+import configureQuestions from './question'
 
 
 export default (): Router.IMiddleware => {
@@ -8,6 +9,7 @@ export default (): Router.IMiddleware => {
   })
 
   router.use(...configureUser())
+  router.use(...configureQuestions())
 
   return router.routes()
 }

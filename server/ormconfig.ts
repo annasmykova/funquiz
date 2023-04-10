@@ -2,7 +2,7 @@ module.exports = {
     type: 'postgres',
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 5433,
-    username: 'dev',
+    username: process.env.POSTGRES_USER || 'dev',
     password: process.env.POSTGRES_PASSWORD || 'funquizdev',
     database: process.env.POSTGRES_DB || 'funquizdb',
     synchronize: true,

@@ -61,6 +61,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }): any => {
   useEffect(() => {
     if (localStorage.getItem('authToken')) {
       fetchAccount()
+    } else {
+      setLoading(false)
     }
   }, [])
 
@@ -68,6 +70,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }): any => {
     try {
       const response = await api.get('/user');
       setUser(response.data.user);
+      setLoading(false)
     } catch (error) {
       setError(error as AxiosError);
     }

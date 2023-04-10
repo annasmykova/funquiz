@@ -19,6 +19,7 @@ First of all you need to run db in docker.
 1. COPY .env.example to .env file
 2. install docker if you haven't yet
 3. run docker image by running `docker compose up` in terminal
+4. to set up seeds run `np run seed`
 
 
 ### API

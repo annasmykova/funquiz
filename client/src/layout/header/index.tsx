@@ -90,14 +90,14 @@ const Header = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink to="/quiz">
+                <NavLink className="primary-link" to="/quiz">
                   <Typography textAlign="center">
                     Quiz
                   </Typography>
                 </NavLink>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink to="/feedback">
+                <NavLink className="primary-link" to="/feedback">
                   <Typography textAlign="center">
                     Feedback
                   </Typography>
