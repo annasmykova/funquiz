@@ -17,7 +17,7 @@ function useAxios<T>(url: string, config: AxiosRequestConfig = {}): AxiosState<T
     const fetchData = async () => {
       try {
         const response: AxiosResponse<T> = await api.request({
-          url: `${process.env.REACT_APP_API_URL}${url}`,
+          url,
           method: 'get',
           ...config
         });
