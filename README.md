@@ -30,6 +30,7 @@ First of all you need to run db in docker.
 
 ## React App
 
+1. COPY .env.example to .env file
 1. Run `npm i` command
 2. Run local `npm start`
 
