@@ -19,13 +19,13 @@ First of all you need to run db in docker.
 1. COPY .env.example to .env file
 2. install docker if you haven't yet
 3. run docker image by running `docker compose up` in terminal
-4. to set up seeds run `npm run seed`
 
 
 ### API
 
 1. Run `npm i` command
-2. Run local `npm run start:dev` command (Be sure that you have `nodemon` installed)
+2. Run `npm run seed
+3. Run local `npm run start:dev` command (Be sure that you have `nodemon` installed)
 
 
 ## React App
