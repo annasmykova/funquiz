@@ -28,11 +28,23 @@ export default async (ctx: RouterContext<Context, LoginRequest>) => {
   }
 
   const user: User = await UserService.getByEmail(email);
+
+  if (!user) {
+    ctx.status = 400;
+    ctx.body = {
+      code: 400,
+      message: "No user with this email found",
+    };
+    return;
+  }
   const passwordMatch = await bcrypt.compare(password, user?.password);
 
-  if (!user || !passwordMatch) {
-    ctx.res.statusCode = 401;
-    ctx.res.statusMessage = "This email or password is not valid!";
+  if (!passwordMatch) {
+    ctx.status = 400;
+    ctx.body = {
+      code: 400,
+      message: "Invalid email or password",
+    };
     return;
   }
 

@@ -25,6 +25,7 @@ type ErrorsT = {
 
 const Login = () => {
   const {
+    state: { error },
     actions: { login },
   } = useContext(AccountContext)
   const [errors, setErrors] = useState<ErrorsT>({})
@@ -99,8 +100,8 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               value={fields.email}
-              error={!!errors.email}
-              helperText={errors.email}
+              error={!!errors.email || !!error}
+              helperText={errors.email || error?.response?.data?.message}
               onChange={handleChange('email')}
             />
             <TextField
