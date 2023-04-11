@@ -15,6 +15,7 @@ export default async (ctx: RouterContext<Context>) => {
     ctx.response.body = {
       code: 200,
       questions: [],
+      score: existedAnswers.score,
       message: 'Do you think that it is fair to take this quiz again? 😊',
       success: true,
     }

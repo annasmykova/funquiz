@@ -1,5 +1,7 @@
 import {AppDataSource} from "../../db/data-source";
+import {User} from "../../db/entities/User";
 import {AnswerMap, UserAnswer} from "../../db/entities/UserAnswer";
+import {getFeedbackDTO} from "../dto/FeedbackDTO";
 import QuestionService from "./QuestionService";
 
 class AnswerService {
@@ -42,7 +44,18 @@ class AnswerService {
   }
 
   async getByUser(user) {
-    return this.repository.findBy({ user })
+    return this.repository.findOneBy({ user })
+  }
+
+  async getFeedback(user: User) {
+    const questions = await QuestionService.getQuestions()
+    const userAnswer = await this.getByUser(user)
+
+    if (!userAnswer) {
+      return null
+    }
+
+    return getFeedbackDTO(questions, userAnswer)
   }
 }
 

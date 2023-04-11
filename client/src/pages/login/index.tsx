@@ -1,42 +1,74 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import React, {useContext, useState} from 'react';
-import {NavLink} from "react-router-dom";
-import {AccountContext, LoginAccountT} from "../../contexts/userContext";
-import Page from '../../layout/page';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import React, { useContext, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import { AccountContext, LoginAccountT } from '../../contexts/userContext'
+import { validateEmail } from '../../helpers/validation'
+import Page from '../../layout/page'
 
 const initialFields: LoginAccountT = {
   email: '',
-  password: ''
+  password: '',
+}
+
+type ErrorsT = {
+  email?: string
+  password?: string
 }
 
 const Login = () => {
-  const { actions: { login } } = useContext(AccountContext)
+  const {
+    actions: { login },
+  } = useContext(AccountContext)
+  const [errors, setErrors] = useState<ErrorsT>({})
   const [fields, setFields] = useState<LoginAccountT>(initialFields)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    login(fields)
-  };
-
-  const handleChange = (key: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFields({
-      ...fields,
-      [key]: event.target.value
-    })
+    event.preventDefault()
+    if (validate()) {
+      login(fields)
+    }
   }
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {}
+    if (!fields.email) {
+      newErrors.email = 'Email is required'
+    } else if (!validateEmail(fields.email)) {
+      newErrors.email = 'Please, input valid email'
+    }
+    if (!fields.password) {
+      newErrors.password = 'Password is required'
+    }
+
+    setErrors(newErrors)
+
+    return Object.values(newErrors).reduce((acc, value) => acc && !value, true)
+  }
+
+  const handleChange =
+    (key: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFields({
+        ...fields,
+        [key]: event.target.value,
+      })
+      setErrors({
+        ...errors,
+        [key]: '',
+      })
+    }
 
   return (
     <Page>
       <Container maxWidth="xs">
-        <CssBaseline/>
+        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -45,13 +77,18 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-            <LockOutlinedIcon/>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -62,6 +99,8 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               value={fields.email}
+              error={!!errors.email}
+              helperText={errors.email}
               onChange={handleChange('email')}
             />
             <TextField
@@ -74,13 +113,15 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
               value={fields.password}
+              error={!!errors.password}
+              helperText={errors.password}
               onChange={handleChange('password')}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
@@ -97,7 +138,7 @@ const Login = () => {
         </Box>
       </Container>
     </Page>
-  );
+  )
 }
 
 export default Login

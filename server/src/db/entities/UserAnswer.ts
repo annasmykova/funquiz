@@ -1,27 +1,33 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne} from "typeorm"
-import {User} from "./User";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  ManyToOne,
+} from "typeorm";
+import { User } from "./User";
 
 export type AnswerMap = {
-  [key: string]: string
-}
+  [key: string]: string;
+};
 
 @Entity()
 export class UserAnswer {
-
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
-  @ManyToOne(
-    _type => User,
-    { nullable: false, cascade: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' },
-  )
-  @JoinColumn({name: 'user_id'})
-  user: User
+  @ManyToOne((_type) => User, {
+    nullable: false,
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn({ name: "user_id" })
+  user: User;
 
-  @Column('jsonb')
-  answers: AnswerMap
+  @Column({ type: "jsonb", nullable: false })
+  answers: AnswerMap;
 
-  @Column({ type: 'float'})
-  score: number
-
+  @Column({ type: "float", nullable: false })
+  score: number;
 }

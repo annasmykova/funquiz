@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Route, Redirect, RouteProps } from 'react-router-dom'
-import Loader from "../Loader";
+import Loader from '../Loader'
 
 interface PrivateRouteProps extends RouteProps {
   // tslint:disable-next-line:no-any
@@ -31,12 +31,11 @@ const PrivateRoute = (props: PrivateRouteProps) => {
           <Redirect
             to={{
               pathname: '/',
-              state: {from: routeProps.location},
+              state: { from: routeProps.location },
             }}
           />
         )
-      }
-      }
+      }}
     />
   )
 }

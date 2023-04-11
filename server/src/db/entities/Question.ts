@@ -1,26 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 export type QuestionOption = {
-  text: string,
-  value: string,
-  isCorrect: boolean
-}
+  text: string;
+  value: string;
+  isCorrect: boolean;
+};
 
 @Entity()
 export class Question {
-
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
-  @Column()
-  title: string
+  @Column({ nullable: false })
+  title: string;
 
-  @Column()
-  description: string
+  @Column({ nullable: false })
+  description: string;
 
-  @Column('jsonb')
-  options: QuestionOption[]
+  @Column({ type: "jsonb", nullable: false })
+  options: QuestionOption[];
 
-  @Column()
-  imgSrc: string
+  @Column({ nullable: false })
+  imgSrc: string;
 }

@@ -54,3 +54,11 @@ a.primary-link {
   background-color: var(--mui-palette-primary-main);
   color: #fff;
 }
+.primary-text {
+  color: var(--mui-palette-primary-main);
+
+}
+
+p {
+  margin: 0 0 16px;
+}

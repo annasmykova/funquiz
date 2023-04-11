@@ -1,38 +1,38 @@
-import {AxiosError} from "axios";
-import {useEffect, useState} from "react";
+import { AxiosError } from 'axios'
+import { useEffect, useState } from 'react'
 import * as React from 'react'
-import {useHistory} from "react-router-dom";
-import api from "../config/axiosInterceptor";
+import { useHistory } from 'react-router-dom'
+import api from '../config/axiosInterceptor'
 
 type UserT = {
-  id: number,
-  firstName: string,
-  lastName: string,
-  email: string,
+  id: number
+  firstName: string
+  lastName: string
+  email: string
 }
 
 export type LoginAccountT = {
-  email: string,
+  email: string
   password: string
 }
 
 export type RegisterAccountT = {
-  email: string,
-  password: string,
-  firstName: string,
-  lastName: string,
+  email: string
+  password: string
+  firstName: string
+  lastName: string
 }
 
 type AccountContextT = {
   state: {
-    user: UserT | null,
-    loading: boolean,
+    user: UserT | null
+    loading: boolean
     error?: any
-  },
+  }
   actions: {
-    login: (acc: LoginAccountT) => void,
-    register: (acc: RegisterAccountT) => void,
-    logout: () => void,
+    login: (acc: LoginAccountT) => void
+    register: (acc: RegisterAccountT) => void
+    logout: () => void
   }
 }
 
@@ -45,18 +45,16 @@ const initialState: AccountContextT = {
     login: () => {},
     register: () => {},
     logout: () => {},
-  }
+  },
 }
 
 export const AccountContext = React.createContext<AccountContextT>(initialState)
-
 
 const UserProvider = ({ children }: { children: React.ReactNode }): any => {
   const [user, setUser] = useState(initialState.state.user)
   const [loading, setLoading] = useState(initialState.state.loading)
   const [error, setError] = useState(initialState.state.error)
   const history = useHistory()
-
 
   useEffect(() => {
     if (localStorage.getItem('authToken')) {
@@ -66,13 +64,13 @@ const UserProvider = ({ children }: { children: React.ReactNode }): any => {
     }
   }, [])
 
-  const fetchAccount = async() => {
+  const fetchAccount = async () => {
     try {
-      const response = await api.get('/user');
-      setUser(response.data.user);
+      const response = await api.get('/user')
+      setUser(response.data.user)
       setLoading(false)
     } catch (error) {
-      setError(error as AxiosError);
+      setError(error as AxiosError)
     }
   }
 
@@ -80,26 +78,26 @@ const UserProvider = ({ children }: { children: React.ReactNode }): any => {
     try {
       const response = await api.post('/user/register', {
         ...data,
-      });
-      setUser(response.data.user);
+      })
+      setUser(response.data.user)
       localStorage.setItem('authToken', response.data.token)
     } catch (error) {
-      setError(error as AxiosError);
+      setError(error as AxiosError)
     }
-    setLoading(false);
+    setLoading(false)
   }
 
   const login = async (data: LoginAccountT) => {
     try {
       const response = await api.post('/user/login', {
         ...data,
-      });
-      setUser(response.data.user);
+      })
+      setUser(response.data.user)
       localStorage.setItem('authToken', response.data.token)
     } catch (error) {
-      setError(error as AxiosError);
+      setError(error as AxiosError)
     }
-    setLoading(false);
+    setLoading(false)
   }
 
   const logout = () => {
@@ -111,7 +109,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }): any => {
   const state = {
     user,
     loading,
-    error
+    error,
   }
 
   const actions = {
@@ -121,7 +119,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }): any => {
   }
 
   return (
-    <AccountContext.Provider value={{state, actions }}>
+    <AccountContext.Provider value={{ state, actions }}>
       {children}
     </AccountContext.Provider>
   )

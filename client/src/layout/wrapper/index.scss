@@ -1,4 +1,4 @@
-.home {
+.wrapper {
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -7,7 +7,7 @@
   width: 100vw;
   margin: 0 calc(-50vw + 50%);
   min-height: calc(100vh - 100px);
-  background: url('../../images/bg.jpeg') no-repeat center/cover;
+  background-color: #eee;
 
   .MuiPaper-root {
     padding: 32px;
@@ -20,5 +20,9 @@
       margin-top: 16px;
       font-size: 24px;
     }
+  }
+
+  &.with-bg {
+    background: url('../../images/bg.jpeg') no-repeat center/cover;
   }
 }
